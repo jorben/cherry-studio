@@ -36,6 +36,7 @@ import TogetherProviderLogo from '@renderer/assets/images/providers/together.png
 import BytedanceProviderLogo from '@renderer/assets/images/providers/volcengine.png'
 import ZeroOneProviderLogo from '@renderer/assets/images/providers/zero-one.png'
 import ZhipuProviderLogo from '@renderer/assets/images/providers/zhipu.png'
+import TencentCloudProviderLogo from '@renderer/assets/images/providers/tencentcloud.png'
 export function getProviderLogo(providerId: string) {
   switch (providerId) {
     case 'openai':
@@ -114,6 +115,8 @@ export function getProviderLogo(providerId: string) {
       return PerplexityProviderLogo
     case 'infini':
       return InfiniProviderLogo
+    case 'tencent-cloud':
+      return TencentCloudProviderLogo
     default:
       return undefined
   }
@@ -529,6 +532,17 @@ export const PROVIDER_CONFIG = {
       apiKey: 'https://console.bce.baidu.com/iam/#/iam/apikey/list',
       docs: 'https://cloud.baidu.com/doc/index.html',
       models: 'https://cloud.baidu.com/doc/WENXINWORKSHOP/s/Fm2vrveyu'
+    }
+  },
+  'tencent-cloud': {
+    api: {
+      url: 'https://api.lkeap.cloud.tencent.com'
+    },
+    websites: {
+      official: 'https://cloud.tencent.com/',
+      apiKey: 'https://console.cloud.tencent.com/lkeap/api',
+      docs: 'https://cloud.tencent.com/document/product/1772/115969',
+      models: 'https://cloud.tencent.com/document/product/1772/115969'
     }
   }
 }

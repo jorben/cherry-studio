@@ -1513,6 +1513,20 @@ export const SYSTEM_MODELS: Record<string, Model[]> = {
       name: 'jina-embeddings-v2-base-code',
       group: 'Jina'
     }
+  ],
+  'tencent-cloud': [
+    {
+      id: 'deepseek-v3',
+      provider: 'tencent-cloud',
+      name: 'DeepSeek: V3',
+      group: 'DeepSeek'
+    },
+    {
+      id: 'deepseek-r1',
+      provider: 'tencent-cloud',
+      name: 'DeepSeek: R1',
+      group: 'DeepSeek'
+    }
   ]
 }
 
@@ -1693,6 +1707,10 @@ export function isWebSearchModel(model: Model): boolean {
     return true
   }
 
+  if (provider.id === 'tencent-cloud') {
+    return model?.id?.startsWith('deepseek')
+  }
+
   return false
 }
 
@@ -1711,6 +1729,12 @@ export function getOpenAIWebSearchParams(assistant: Assistant, model: Model): Re
           search_options: {
             forced_search: true
           }
+        }
+      }
+
+      if (model.provider === 'tencent-cloud') {
+        return {
+          enable_search: true
         }
       }
 

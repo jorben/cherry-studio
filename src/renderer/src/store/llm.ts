@@ -396,7 +396,17 @@ const initialState: LlmState = {
       models: SYSTEM_MODELS.modelscope,
       isSystem: true,
       enabled: false
-    }
+    },
+    {
+      id: 'tencent-cloud',
+      name: 'Tencent Cloud',
+      type: 'openai',
+      apiKey: '',
+      apiHost: 'https://api.lkeap.cloud.tencent.com',
+      models: SYSTEM_MODELS['tencent-cloud'],
+      isSystem: true,
+      enabled: false
+    },
   ],
   settings: {
     ollama: {
