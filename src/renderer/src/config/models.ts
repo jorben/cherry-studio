@@ -1276,6 +1276,12 @@ export const SYSTEM_MODELS: Record<string, Model[]> = {
       provider: 'hunyuan',
       name: 'hunyuan-turbo',
       group: 'Hunyuan'
+    },
+    {
+      id: 'hunyuan-embedding',
+      provider: 'hunyuan',
+      name: 'hunyuan-embedding',
+      group: 'Hunyuan'
     }
   ],
   nvidia: [
