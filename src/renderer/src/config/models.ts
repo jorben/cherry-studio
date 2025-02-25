@@ -1712,6 +1712,12 @@ export function isWebSearchModel(model: Model): boolean {
     return false
   }
 
+  const isEmbedding = isEmbeddingModel(model)
+
+  if (isEmbedding) {
+    return false
+  }
+
   if (provider?.type === 'openai') {
     if (model?.id?.includes('gemini-2.0-flash-exp')) {
       return true
