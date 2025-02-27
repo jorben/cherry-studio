@@ -197,19 +197,17 @@ export default class OpenAIProvider extends BaseProvider {
       userMessages.push(await this.getMessageParam(message, model))
     }
 
-    const isOpenAIo1 = this.isOpenAIo1(model)
-
     const isSupportStreamOutput = () => {
-      if (isOpenAIo1) {
-        return false
-      }
       return streamOutput
     }
 
     let hasReasoningContent = false
     let lastChunk = ''
     const isReasoningJustDone = (
-      delta: OpenAI.Chat.Completions.ChatCompletionChunk.Choice.Delta & { reasoning_content?: string }
+      delta: OpenAI.Chat.Completions.ChatCompletionChunk.Choice.Delta & {
+        reasoning_content?: string
+        reasoning?: string
+      }
     ) => {
       if (!delta?.content) return false
 
@@ -222,12 +220,12 @@ export default class OpenAIProvider extends BaseProvider {
         return true
       }
 
-      // 如果有reasoning_content，说明是在思考中
-      if (delta?.reasoning_content) {
+      // 如果有reasoning_content或reasoning，说明是在思考中
+      if (delta?.reasoning_content || delta?.reasoning) {
         hasReasoningContent = true
       }
 
-      // 如果之前有reasoning_content，现在有普通content，说明思考结束
+      // 如果之前有reasoning_content或reasoning，现在有普通content，说明思考结束
       if (hasReasoningContent && delta.content) {
         return true
       }
@@ -285,7 +283,7 @@ export default class OpenAIProvider extends BaseProvider {
 
       const delta = chunk.choices[0]?.delta
 
-      if (delta?.reasoning_content) {
+      if (delta?.reasoning_content || delta?.reasoning) {
         hasReasoningContent = true
       }
 
@@ -329,13 +327,8 @@ export default class OpenAIProvider extends BaseProvider {
         ]
       : [{ role: 'user', content: assistant.prompt }]
 
-    const isOpenAIo1 = this.isOpenAIo1(model)
-
     const isSupportedStreamOutput = () => {
       if (!onResponse) {
-        return false
-      }
-      if (isOpenAIo1) {
         return false
       }
       return true
