@@ -1180,6 +1180,19 @@ const migrateConfig = {
     return state
   },
   '74': (state: RootState) => {
+    state.llm.providers.push({
+      id: 'xirang',
+      name: 'Xirang',
+      type: 'openai',
+      apiKey: '',
+      apiHost: 'https://wishub-x1.ctyun.cn',
+      models: SYSTEM_MODELS.xirang,
+      isSystem: true,
+      enabled: false
+    })
+    return state
+  },
+  '75': (state: RootState) => {
     if (!state.llm.providers.find((provider) => provider.id === 'tencent-cloud')) {
       state.llm.providers.push({
         id: 'tencent-cloud',
